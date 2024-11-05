@@ -68,6 +68,10 @@ export const graphqlQuery = async <T>({
       core.debug(`Full error response: ${JSON.stringify(error)}`)
     })
 
+  if (data === undefined || data === null) {
+    return {} as T
+  }
+
   return data as T
 }
 export default graphqlQuery

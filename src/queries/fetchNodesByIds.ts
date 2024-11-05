@@ -63,7 +63,9 @@ export const fetchNodesByIds = async <T>({
       }).then((response: BaseQueryResponse) => {
         const t1 = performance.now()
         const callDuration = t1 - t0
-        rateLimit = response.rateLimit
+        if (response.rateLimit !== undefined) {
+          rateLimit = response.rateLimit
+        }
         if (
           response !== undefined &&
           response.nodes !== undefined &&
