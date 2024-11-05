@@ -35,7 +35,9 @@ export const graphqlQuery = async <T>({
   // If the remaining tokens are less than 50, wait until the token reset
   await processRateLimit(rateLimit)
 
-  const data = await client
+  let data: T | undefined
+
+  data = await client
     .query({
       query,
       variables, // eslint-disable-line
@@ -59,13 +61,14 @@ export const graphqlQuery = async <T>({
       }
       return response.data as T
     })
-    .catch((error: ApolloError) => {
+    .catch((error: ApolloError): T | undefined => {
       core.warning('Unable to perform the GraphQL Query')
       core.warning('Error Message: ' + JSON.stringify(error.message))
       core.debug(`GraphQL Query: ${JSON.stringify(query)}`)
       core.debug(`GraphQL Variables: ${JSON.stringify(variables)}`)
       core.debug(`Response data: ${JSON.stringify(data)}`)
       core.debug(`Full error response: ${JSON.stringify(error)}`)
+      return undefined
     })
 
   if (data === undefined || data === null) {
