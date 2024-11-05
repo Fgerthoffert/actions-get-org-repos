@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory'
 import ApolloClient from 'apollo-client'
 import { ApolloLink, concat } from 'apollo-link'
@@ -30,12 +31,11 @@ export const ghClient = (
     })
     // eslint-disable-next-line
     return forward(operation).map(
-      (response: {
-        errors: object[] | undefined
-        data: { errors: object[] }
-      }) => {
-        console.log(response)
+      (response: { errors: any[] | undefined; data: { errors: object[] } }) => {
         if (response.errors !== undefined && response.errors.length > 0) {
+          for (const error of response.errors) {
+            core.error(error.message)
+          }
           response.data.errors = response.errors
         }
         return response

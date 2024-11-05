@@ -45,6 +45,11 @@ for the user attached to the personal api token.
 This is not necessarily an issue per se, but something to consider if that same
 user is performing other API operations.
 
+## Required privileges
+
+The token used for performing the request must have the following scopes:
+['read:org']
+
 # :rocket: Usage
 
 ## Filter repos
