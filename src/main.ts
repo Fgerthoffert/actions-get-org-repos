@@ -81,7 +81,7 @@ export async function run(): Promise<void> {
 
     // Filter the repositories based on the input parameters
     core.info(
-      `GitHub Org: ${orgResponse.organization.name} contains a total of ${sourceRepos.length} repositories`
+      `GitHub Org: ${orgResponse.organization.login} contains a total of ${sourceRepos.length} repositories`
     )
     const filteredRepos = filterRepos({
       repos: sourceRepos,
@@ -122,7 +122,7 @@ export async function run(): Promise<void> {
           tmpFilepath,
           JSON.stringify({
             fetchedAt: new Date().toISOString(),
-            org: orgResponse.organization.name,
+            org: orgResponse.organization.login,
             repositories: fetchedRepos
           })
         )

@@ -60,8 +60,8 @@ export const graphqlQuery = async <T>({
       return response.data as T
     })
     .catch((error: ApolloError) => {
-      core.error('Unable to perform the GraphQL Query')
-      core.error('Error Message: ' + JSON.stringify(error.message))
+      core.warning('Unable to perform the GraphQL Query')
+      core.warning('Error Message: ' + JSON.stringify(error.message))
       core.debug(`GraphQL Query: ${JSON.stringify(query)}`)
       core.debug(`GraphQL Variables: ${JSON.stringify(variables)}`)
       core.debug(`Response data: ${JSON.stringify(data)}`)

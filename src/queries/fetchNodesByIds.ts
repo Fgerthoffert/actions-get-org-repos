@@ -51,7 +51,7 @@ export const fetchNodesByIds = async <T>({
     let updatedData: GitHubNode[] = []
     while (updatedData.length === 0 && retries < maxRetries) {
       core.info(
-        `Loading ${idsChunk.length} repos from GitHub ${fetchedNodes.length + idsChunk.length} / ${githubIds.length})${retries > 0 ? ' - API error, retry: ' + retries + '/' + maxRetries : ''}`
+        `Loading ${idsChunk.length} repos from GitHub ${fetchedNodes.length + idsChunk.length} / ${githubIds.length} ${retries > 0 ? ' - API error, retry: ' + retries + '/' + maxRetries : ''}`
       )
       const t0 = performance.now()
 
