@@ -34,7 +34,27 @@ JSON is based on nodes present in this query.
 
 TODO: Add more details about what data is present
 
+## GitHub Rate Limits
+
+The action will play gently with GitHub rate limits (it follow the
+[official guidelines](https://docs.github.com/en/graphql/overview/rate-limits-and-node-limits-for-the-graphql-api)),
+but it is going to perform expensive queries. Depending of the number of
+repositories in your organization, running the action might consume all credits
+for the user attached to the personal api token.
+
+This is not necessarily an issue per se, but something to consider if that same
+user is performing other API operations.
+
 # :rocket: Usage
+
+## Filter repos
+
+For organizations with a very large number of repositories you might not want to
+fetch data about absolutely all repositories, mechanisms are available to filter
+repositories by:
+
+- their topics (OR and AND operand available)
+- their archive status (not grabbing detailed about archived repos by default)
 
 ## Generate a JSON report
 

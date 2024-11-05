@@ -34,6 +34,7 @@ export const ghClient = (
         errors: object[] | undefined
         data: { errors: object[] }
       }) => {
+        console.log(response)
         if (response.errors !== undefined && response.errors.length > 0) {
           response.data.errors = response.errors
         }
