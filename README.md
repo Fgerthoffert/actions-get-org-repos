@@ -8,10 +8,10 @@
 
 <div align="center">
 
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yml/badge.svg)
-[![Check dist/](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/check-dist.yml)
-[![CodeQL](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/actions/typescript-action/actions/workflows/codeql-analysis.yml)
+[![GitHub Super-Linter](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/ci.yml/badge.svg)
+[![Check dist/](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/check-dist.yml/badge.svg)](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/check-dist.yml)
+[![CodeQL](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/fgerthoffert/actions-get-org-repos/actions/workflows/codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
 </div>
@@ -20,13 +20,17 @@
 
 # About
 
-Based on work done a few years ago on [ZenCrepes](https://docs.zencrepes.io/docs/). 
+Based on work done a few years ago on
+[ZenCrepes](https://docs.zencrepes.io/docs/).
 
-The goal of this action is to fetch particular repository details for all repositories attached to an organization, with the objective of being able to centralize information in one single place. 
+The goal of this action is to fetch particular repository details for all
+repositories attached to an organization, with the objective of being able to
+centralize information in one single place.
 
 ## Collected data
 
-Data is collected via a GraphQL query to GitHub, the content of the generated JSON is based on nodes present in this query.
+Data is collected via a GraphQL query to GitHub, the content of the generated
+JSON is based on nodes present in this query.
 
 TODO: Add more details about what data is present
 
@@ -39,7 +43,7 @@ Sample workflow, generating a JSON report
 ```
 name: Fetch Orgs Repos
 
-on: 
+on:
   workflow_dispatch:
 
 jobs:
@@ -56,5 +60,3 @@ jobs:
 ## Generate a CSV report
 
 ## Upload report to Google Spreadsheet
-
-

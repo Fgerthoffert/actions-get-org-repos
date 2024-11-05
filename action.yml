@@ -1,5 +1,6 @@
 name: 'Fetch Org Repositories'
-description: 'Collect data about all GitHub Repositories attached to a GitHub Organization.'
+description:
+  'Collect data about all GitHub Repositories attached to a GitHub Organization.'
 author: 'fgerthoffert'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
@@ -20,7 +21,9 @@ inputs:
     required: true
     default: 30
   filter_topics:
-    description: 'Comma separated list of topics to filter repositories by. Use EMPTY to filter by repositories without topics'
+    description:
+      'Comma separated list of topics to filter repositories by. Use EMPTY to
+      filter by repositories without topics'
     default: ''
     required: false
   filter_operand:
