@@ -37,6 +37,7 @@ export const graphqlQuery = async <T>({
 
   let data: T | undefined
 
+  // eslint-disable-next-line
   data = await client
     .query({
       query,

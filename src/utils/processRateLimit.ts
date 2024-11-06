@@ -11,7 +11,7 @@ import { sleep } from './sleep'
  */
 export const processRateLimit = async (
   rateLimit: RateLimit,
-  minTokens: number = 50
+  minTokens = 50
 ): Promise<void> => {
   if (rateLimit.remaining - rateLimit.cost < 50 && rateLimit.resetAt !== null) {
     const sleepDuration =

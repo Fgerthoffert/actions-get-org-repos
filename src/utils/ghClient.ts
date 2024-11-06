@@ -31,11 +31,14 @@ export const ghClient = (
     })
     // eslint-disable-next-line
     return forward(operation).map(
+      // eslint-disable-next-line
       (response: { errors: any[] | undefined; data: { errors: object[] } }) => {
         if (response.errors !== undefined && response.errors.length > 0) {
           for (const error of response.errors) {
+            // eslint-disable-next-line
             core.error(error.message)
           }
+          // eslint-disable-next-line
           response.data.errors = response.errors
         }
         return response
