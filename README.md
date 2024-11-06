@@ -109,3 +109,16 @@ jobs:
 ## Generate a CSV report
 
 ## Upload report to Google Spreadsheet
+
+# How to contribute
+
+- Fork the repository
+- npm install
+- Rename .env.example into .env
+- Update the INPUT_ variables
+- Do your changes
+- npx local-action . src/main.ts .env
+- npm run bundle
+- npm test
+- PR into this repository, detailing your changes
+
