@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="GoReleaser Logo" src="docs/zencrepes-logo.png" height="140" />
+  <img alt="ZenCrepesLogo" src="docs/zencrepes-logo.png" height="140" />
   <h2 align="center">Get Org Repos</h2>
   <p align="center">Fetch data about all repositories attached to a GitHub Organization</p>
 </p>
@@ -87,7 +87,7 @@ repositories by:
 
 Sample workflow, generating a JSON report
 
-```
+```yaml
 name: Fetch Orgs Repos
 
 on:
@@ -97,11 +97,11 @@ jobs:
   get-org-repos:
     runs-on: ubuntu-latest
     steps:
-    - name: Create Release Notes
-      uses: fgerthoffert/actions-get-org-repos
-      with:
-        org: zencrepes
-        token: YOUR_TOKEN
+      - name: Create Release Notes
+        uses: fgerthoffert/actions-get-org-repos
+        with:
+          org: zencrepes
+          token: YOUR_TOKEN
 ```
 
 ## Generate a CSV report
