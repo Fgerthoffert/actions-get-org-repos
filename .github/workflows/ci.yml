@@ -57,7 +57,8 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          org: zencrepes
+          token: ${{ secrets.GH_TOKEN_GET_ORG_REPOS }}
 
       - name: Print Output
         id: output
