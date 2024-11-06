@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 <p align="center">
   <img alt="ZenCrepesLogo" src="docs/zencrepes-logo.png" height="140" />
   <h2 align="center">Get Org Repos</h2>

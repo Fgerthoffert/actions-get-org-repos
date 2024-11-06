@@ -23,6 +23,7 @@ MD033:
     - p
     - img
     - h2
+    - div
 
 # Code block style
 MD046:
