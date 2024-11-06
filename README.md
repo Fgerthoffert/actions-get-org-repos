@@ -205,10 +205,6 @@ jobs:
           retention-days: 2
 ```
 
-```bash
-npx @json2csv/cli -i /path/to/ndjson.ndjson --ndjson --config json2csv-config.js  -o repositories.csv
-```
-
 ## Upload report to Google Spreadsheet
 
 # How to contribute
