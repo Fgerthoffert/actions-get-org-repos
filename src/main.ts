@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 
-import { writeFileSync } from 'fs'
+import { createWriteStream } from 'fs'
 import * as path from 'path'
 import os from 'os'
 
@@ -115,17 +115,19 @@ export async function run(): Promise<void> {
       `${timeSinceStart(startTime)} 🗄️ Uploading artifacts to GitHub infrastructure`,
       async () => {
         // Save Artifact
-        const tmpFilename = 'repositories.json'
+        const tmpFilename = core.getInput('artifact_filename')
         const tmpPath = os.tmpdir()
         const tmpFilepath = path.join(tmpPath, tmpFilename)
-        writeFileSync(
-          tmpFilepath,
-          JSON.stringify({
-            fetchedAt: new Date().toISOString(),
-            org: orgResponse.organization.login,
-            repositories: fetchedRepos
-          })
-        )
+        const ndstream = createWriteStream(tmpFilepath, { flags: 'a' })
+        for (const repoObj of fetchedRepos) {
+          ndstream.write(
+            JSON.stringify({
+              ...repoObj,
+              fetchedAt: new Date().toISOString()
+            }) + '\n'
+          )
+        }
+        ndstream.end()
         core.info(`Artifact saved to: ${tmpFilepath}`)
 
         await uploadArtifact({
