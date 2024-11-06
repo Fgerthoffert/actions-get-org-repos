@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 
-import { writeFileSync } from 'fs'
 import * as path from 'path'
+import * as fs from 'fs'
 import os from 'os'
 
 import { getOrgByName, getOrgRepos, getRepos, getRateLimit } from './graphql'
@@ -39,7 +39,7 @@ export async function run(): Promise<void> {
     // Find the GitHub org by name
     // This also useful to verify that the org actually exists
     const orgResponse: OrgResponse = await core.group(
-      `${timeSinceStart(startTime)} ⚙️ Verifying org: ${core.getInput('org')}`,
+      `${timeSinceStart(startTime)} 🗒️ Verifying org: ${core.getInput('org')}`,
       async () => {
         const orgResponse: OrgResponse = await graphqlQuery<OrgResponse>({
           client: gClient,
@@ -81,7 +81,7 @@ export async function run(): Promise<void> {
 
     // Filter the repositories based on the input parameters
     core.info(
-      `GitHub Org: ${orgResponse.organization.name} contains a total of ${sourceRepos.length} repositories`
+      `GitHub Org: ${orgResponse.organization.login} contains a total of ${sourceRepos.length} repositories`
     )
     const filteredRepos = filterRepos({
       repos: sourceRepos,
@@ -89,7 +89,7 @@ export async function run(): Promise<void> {
         core.getInput('filter_topics').length > 0
           ? core.getInput('filter_topics').split(',')
           : [],
-      filterOperand: core.getInput('filter_operand'),
+      filterOperator: core.getInput('filter_operator'),
       filterIgnoreArchived: core.getInput('filter_ignore_archived') === 'true'
     })
 
@@ -111,23 +111,25 @@ export async function run(): Promise<void> {
       }
     )
 
+    const tmpFilename = core.getInput('artifact_filename')
+    const tmpPath = os.tmpdir()
+    const tmpFilepath = path.join(tmpPath, tmpFilename)
+
+    for (const repoObj of fetchedRepos) {
+      fs.writeFileSync(
+        tmpFilepath,
+        JSON.stringify({
+          ...repoObj,
+          fetchedAt: new Date().toISOString()
+        }) + '\n',
+        { flag: 'a' }
+      )
+    }
+    core.info(`List of repositories saved to: ${tmpFilepath}`)
+
     await core.group(
       `${timeSinceStart(startTime)} 🗄️ Uploading artifacts to GitHub infrastructure`,
       async () => {
-        // Save Artifact
-        const tmpFilename = 'repositories.json'
-        const tmpPath = os.tmpdir()
-        const tmpFilepath = path.join(tmpPath, tmpFilename)
-        writeFileSync(
-          tmpFilepath,
-          JSON.stringify({
-            fetchedAt: new Date().toISOString(),
-            org: orgResponse.organization.name,
-            repositories: fetchedRepos
-          })
-        )
-        core.info(`Artifact saved to: ${tmpFilepath}`)
-
         await uploadArtifact({
           artifactName: core.getInput('artifact_name'),
           artifactPath: tmpPath,

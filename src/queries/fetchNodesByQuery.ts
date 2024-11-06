@@ -56,8 +56,10 @@ const getNodesPagination = async <T>({
     const data: BaseQueryResponse = await graphqlQuery<BaseQueryResponse>({
       client: ghClient,
       query: graphQLQuery,
+      // eslint-disable-next-line
       variables: {
         ...queryParams,
+        // eslint-disable-next-line
         cursor,
         increment
       },
@@ -116,6 +118,7 @@ const getNodesPagination = async <T>({
             cursor: lastCursor,
             increment: queryIncrement,
             graphQLQuery: graphQLQuery,
+            // eslint-disable-next-line
             queryParams: queryParams,
             rateLimit: rateLimit,
             errorRetry: 0,
@@ -131,6 +134,7 @@ const getNodesPagination = async <T>({
         cursor: cursor,
         increment: increment,
         graphQLQuery: graphQLQuery,
+        // eslint-disable-next-line
         queryParams: queryParams,
         rateLimit: rateLimit,
         errorRetry: 0,
@@ -168,6 +172,7 @@ export const fetchNodesByQuery = async <T>({
     cursor: null,
     increment: maxNodes,
     graphQLQuery: graphQLQuery,
+    // eslint-disable-next-line
     queryParams: queryParams,
     rateLimit: rateLimit,
     errorRetry: 0,

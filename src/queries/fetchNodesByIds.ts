@@ -51,29 +51,33 @@ export const fetchNodesByIds = async <T>({
     let updatedData: GitHubNode[] = []
     while (updatedData.length === 0 && retries < maxRetries) {
       core.info(
-        `Loading ${idsChunk.length} repos from GitHub ${fetchedNodes.length + idsChunk.length} / ${githubIds.length})${retries > 0 ? ' - API error, retry: ' + retries + '/' + maxRetries : ''}`
+        `Loading ${idsChunk.length} repos from GitHub ${fetchedNodes.length + idsChunk.length} / ${githubIds.length} ${retries > 0 ? ' - API error, retry: ' + retries + '/' + maxRetries : ''}`
       )
       const t0 = performance.now()
 
-      const data: BaseQueryResponse = await graphqlQuery<BaseQueryResponse>({
+      await graphqlQuery<BaseQueryResponse>({
         client: ghClient,
         query: graphQLQuery,
         variables: { nodesArray: idsChunk },
         rateLimit: rateLimit
+      }).then((response: BaseQueryResponse) => {
+        const t1 = performance.now()
+        const callDuration = t1 - t0
+        if (response.rateLimit !== undefined) {
+          rateLimit = response.rateLimit
+        }
+        if (
+          response !== undefined &&
+          response.nodes !== undefined &&
+          response.nodes.length > 0
+        ) {
+          const apiPerf = Math.round(
+            response.nodes.length / (callDuration / 1000)
+          )
+          core.info('Fetched data at: ' + apiPerf + ' nodes/s')
+          updatedData = response.nodes
+        }
       })
-      const t1 = performance.now()
-      const callDuration = t1 - t0
-      rateLimit = data.rateLimit
-
-      if (
-        data !== undefined &&
-        data.nodes !== undefined &&
-        data.nodes.length > 0
-      ) {
-        const apiPerf = Math.round(data.nodes.length / (callDuration / 1000))
-        core.info('Fetched data at: ' + apiPerf + ' nodes/s')
-        updatedData = data.nodes
-      }
 
       retries++
     }
