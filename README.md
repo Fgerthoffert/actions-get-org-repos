@@ -40,7 +40,7 @@ The action will play gently with GitHub rate limits (it follow the
 [official guidelines](https://docs.github.com/en/graphql/overview/rate-limits-and-node-limits-for-the-graphql-api)),
 but it is going to perform expensive queries. Depending of the number of
 repositories in your organization, running the action might consume all credits
-for the user attached to the personal api token.
+for the user attached to the personal API token.
 
 This is not necessarily an issue per se, but something to consider if that same
 user is performing other API operations.
@@ -56,13 +56,14 @@ The token used for performing the request must have the following scopes:
 
 The following input parameters are available:
 
-| Parameter          | Default | Description                                                                                                                                                                                                       |
-| ------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------------- | ----------------- | ----------------------------------------------------------------- |
-| org                |         | A GitHub organization to fetch data from                                                                                                                                                                          |
-| token              |         | A GitHub Personal API Token with the correct scopes (see above)                                                                                                                                                   |
-| filter_topics      |         | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics |
-| filter_operator    | AND     | Default operator to apply on filters. Can take "OR" or "AND"                                                                                                                                                      |     | artifact_name | repositories.json | Name fo the GitHub artifact that will be generated during the run |
-| artifact_retention | 2       | Number of retention days for the artifact                                                                                                                                                                         |
+| Parameter          | Default           | Description                                                                                                                                                                                                       |
+| ------------------ | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| org                |                   | A GitHub organization to fetch data from                                                                                                                                                                          |
+| token              |                   | A GitHub Personal API Token with the correct scopes (see above)                                                                                                                                                   |
+| filter_topics      |                   | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics |
+| filter_operator    | AND               | Default operator to apply on filters. Can take "OR" or "AND"                                                                                                                                                      |
+| artifact_name      | repositories.json | Name fo the GitHub artifact that will be generated during the run                                                                                                                                                 |
+| artifact_retention | 2                 | Number of retention days for the artifact                                                                                                                                                                         |
 
 ## Outputs
 
