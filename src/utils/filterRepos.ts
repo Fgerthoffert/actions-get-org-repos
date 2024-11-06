@@ -6,7 +6,7 @@ import * as core from '@actions/core'
  * @param {Object} params - The parameters for filtering repositories.
  * @param {Repo[]} params.repos - The list of repositories to filter.
  * @param {string[]} params.filterTopics - The list of topics to filter by.
- * @param {string} params.filterOperand - The operand to use for filtering ('AND' or 'OR').
+ * @param {string} params.filterOperator - The operator to use for filtering ('AND' or 'OR').
  * @param {boolean} params.filterIgnoreArchived - Whether to ignore archived repositories.
  * @returns {Repo[]} The filtered list of repositories.
  *
@@ -14,23 +14,23 @@ import * as core from '@actions/core'
  * const filteredRepos = filterRepos({
  *   repos: allRepos,
  *   filterTopics: ['javascript', 'typescript'],
- *   filterOperand: 'AND',
+ *   filterOperator: 'AND',
  *   filterIgnoreArchived: true
  * });
  */
 export const filterRepos = ({
   repos,
   filterTopics,
-  filterOperand,
+  filterOperator,
   filterIgnoreArchived
 }: {
   repos: Repo[]
   filterTopics: string[]
-  filterOperand: string
+  filterOperator: string
   filterIgnoreArchived: boolean
 }): Repo[] => {
   core.debug(`Filtering repos with topics: ${JSON.stringify(filterTopics)}`)
-  core.debug(`Filtering repos with Operand: ${filterOperand}`)
+  core.debug(`Filtering repos with Operator: ${filterOperator}`)
   core.debug(`Filtering repos with Ignore Archived: ${filterIgnoreArchived}`)
   return repos.filter(repo => {
     if (repo.isArchived === true && filterIgnoreArchived === true) {
@@ -56,7 +56,7 @@ export const filterRepos = ({
       return true
     }
 
-    if (filterOperand === 'AND') {
+    if (filterOperator === 'AND') {
       let filterMatch = 0
       for (const topic of filterTopics) {
         if (repoTopics.includes(topic)) {

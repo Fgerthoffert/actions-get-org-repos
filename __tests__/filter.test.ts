@@ -122,7 +122,7 @@ describe('filterRepos.ts', () => {
     let filteredRepos: Repo[] = filterRepos({
       repos: repos,
       filterTopics: [],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: false
     })
     expect(filteredRepos.length).toEqual(repos.length)
@@ -130,7 +130,7 @@ describe('filterRepos.ts', () => {
     filteredRepos = filterRepos({
       repos: repos,
       filterTopics: [],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: false
     })
     expect(filteredRepos.length).toEqual(repos.length)
@@ -140,7 +140,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['EMPTY'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: true
     })
     expect(filteredRepos.length).toEqual(1)
@@ -150,7 +150,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['EMPTY'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: false
     })
     expect(filteredRepos.length).toEqual(2)
@@ -160,7 +160,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos: Repo[] = filterRepos({
       repos: repos,
       filterTopics: [],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: true
     })
 
@@ -174,7 +174,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: true
     })
 
@@ -185,7 +185,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: false
     })
 
@@ -196,7 +196,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic3'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: true
     })
 
@@ -207,7 +207,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic3'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: false
     })
 
@@ -218,7 +218,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic2'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: true
     })
 
@@ -229,7 +229,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic2'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: false
     })
 
@@ -240,7 +240,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic3'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: true
     })
 
@@ -251,7 +251,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['topic1', 'topic3'],
-      filterOperand: 'AND',
+      filterOperator: 'AND',
       filterIgnoreArchived: false
     })
 
@@ -262,7 +262,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['EMPTY', 'topic3'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: true
     })
 
@@ -273,7 +273,7 @@ describe('filterRepos.ts', () => {
     const filteredRepos = filterRepos({
       repos: repos,
       filterTopics: ['EMPTY', 'topic3'],
-      filterOperand: 'OR',
+      filterOperator: 'OR',
       filterIgnoreArchived: false
     })
 

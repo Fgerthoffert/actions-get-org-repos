@@ -50,6 +50,28 @@ user is performing other API operations.
 The token used for performing the request must have the following scopes:
 ['read:org']
 
+# :gear: Configuration
+
+## Input Parameters
+
+The following input parameters are available: 
+
+| Parameter | Default | Description | 
+| --- | --- | --- | 
+| org | | A GitHub organization to fetch data from | 
+| token | | A GitHub Personal API Token with the correct scopes (see above) | 
+| filter_topics | | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics | 
+| filter_operator | AND | Default operator to apply on filters. Can take "OR" or "AND" | | artifact_name | repositories.json | Name fo the GitHub artifact that will be generated during the run | 
+| artifact_retention | 2 | Number of retention days for the artifact |
+
+## Outputs
+
+The following outputs are available: 
+
+| Name | Description | 
+| --- | --- | 
+| artifact_filepath | The filepath, on the local filesystem, where the JSON file is saved. This is useful to perform operations on that JSON in following steps within the same job. |
+
 # :rocket: Usage
 
 ## Filter repos
@@ -58,7 +80,7 @@ For organizations with a very large number of repositories you might not want to
 fetch data about absolutely all repositories, mechanisms are available to filter
 repositories by:
 
-- their topics (OR and AND operand available)
+- their topics (OR and AND operator available)
 - their archive status (not grabbing detailed about archived repos by default)
 
 ## Generate a JSON report

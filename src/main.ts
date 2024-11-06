@@ -89,7 +89,7 @@ export async function run(): Promise<void> {
         core.getInput('filter_topics').length > 0
           ? core.getInput('filter_topics').split(',')
           : [],
-      filterOperand: core.getInput('filter_operand'),
+      filterOperator: core.getInput('filter_operator'),
       filterIgnoreArchived: core.getInput('filter_ignore_archived') === 'true'
     })
 
