@@ -26,8 +26,8 @@ inputs:
       filter by repositories without topics'
     default: ''
     required: false
-  filter_operand:
-    description: 'OR, AND operand to filter repositories by topics'
+  filter_operator:
+    description: 'OR, AND operator to filter repositories by topics'
     default: 'AND'
     required: false
   filter_ignore_archived:
