@@ -56,6 +56,7 @@ interface RepoCustomProperties {
 interface Repo {
   id: string
   name: string
+  nameWithOwner: string
   isArchived: boolean
   owner: {
     login: string

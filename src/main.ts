@@ -14,7 +14,8 @@ import {
   graphqlQuery,
   filterRepos,
   uploadArtifact,
-  processRateLimit
+  processRateLimit,
+  sortByName
 } from './utils'
 
 /**
@@ -131,6 +132,9 @@ export async function run(): Promise<void> {
     } else {
       core.info(`Fetching custom properties is disabled`)
     }
+
+    // Sort repositories by their nameWithOwner
+    fetchedRepos.sort(sortByName)
 
     const tmpFilename = core.getInput('artifact_filename')
     const tmpPath = os.tmpdir()
