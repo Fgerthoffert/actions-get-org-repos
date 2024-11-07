@@ -43,10 +43,24 @@ interface OrgResponse {
   rateLimit: RateLimit
 }
 
+interface RepoCustomProperties {
+  totalCount: number
+  edges: {
+    node: {
+      name: string
+      values: string[]
+    }
+  }[]
+}
+
 interface Repo {
   id: string
   name: string
   isArchived: boolean
+  owner: {
+    login: string
+  }
+  customProperties: RepoCustomProperties
   repositoryTopics: {
     totalCount: number
     edges: {

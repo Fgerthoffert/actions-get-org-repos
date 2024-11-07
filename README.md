@@ -61,6 +61,7 @@ The following input parameters are available:
 | ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | org                |                     | A GitHub organization to fetch data from                                                                                                                                                                          |
 | token              |                     | A GitHub Personal API Token with the correct scopes (see above)                                                                                                                                                   |
+| fetch_custom_properties      | false                    | Perform additional REST calls to fetch repositories custom properties |
 | filter_topics      |                     | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics |
 | filter_operator    | AND                 | Default operator to apply on filters. Can take "OR" or "AND"                                                                                                                                                      |
 | artifact_filename  | repositories.ndjson | Actual filename that will be use to save the file on disk. run                                                                                                                                                    |
@@ -100,7 +101,7 @@ jobs:
   get-org-repos:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Release Notes
+      - name: Get Repos data from Org
         # Replace main by the release of your choice
         uses: fgerthoffert/actions-get-org-repos@main
         with:
