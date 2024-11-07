@@ -54,7 +54,6 @@ export const getCustomProperties = async <T>({
       `Fetching custom properties for repo: ${repo.name}. Found: ${JSON.stringify(customPropertiesNode)}`
     )
 
-    console.log(JSON.stringify(customPropertiesNode))
     updatedRepos.push({
       ...repo,
       customProperties: customPropertiesNode
