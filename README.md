@@ -57,16 +57,16 @@ The token used for performing the request must have the following scopes:
 
 The following input parameters are available:
 
-| Parameter          | Default             | Description                                                                                                                                                                                                       |
-| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| org                |                     | A GitHub organization to fetch data from                                                                                                                                                                          |
-| token              |                     | A GitHub Personal API Token with the correct scopes (see above)                                                                                                                                                   |
-| fetch_custom_properties      | false                    | Perform additional REST calls to fetch repositories custom properties |
-| filter_topics      |                     | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics |
-| filter_operator    | AND                 | Default operator to apply on filters. Can take "OR" or "AND"                                                                                                                                                      |
-| artifact_filename  | repositories.ndjson | Actual filename that will be use to save the file on disk. run                                                                                                                                                    |
-| artifact_name      | repositories.ndjson | Name fo the GitHub artifact that will be generated during the run                                                                                                                                                 |
-| artifact_retention | 2                   | Number of retention days for the artifact                                                                                                                                                                         |
+| Parameter               | Default             | Description                                                                                                                                                                                                       |
+| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| org                     |                     | A GitHub organization to fetch data from                                                                                                                                                                          |
+| token                   |                     | A GitHub Personal API Token with the correct scopes (see above)                                                                                                                                                   |
+| fetch_custom_properties | false               | Perform additional REST calls to fetch repositories custom properties                                                                                                                                             |
+| filter_topics           |                     | A comma separated (no space) list of topics to filter repositories by before fetching all the data. You can specify the "EMPTY", for example to filter by repositories with the "tooling" topic OR without topics |
+| filter_operator         | AND                 | Default operator to apply on filters. Can take "OR" or "AND"                                                                                                                                                      |
+| artifact_filename       | repositories.ndjson | Actual filename that will be use to save the file on disk. run                                                                                                                                                    |
+| artifact_name           | repositories.ndjson | Name fo the GitHub artifact that will be generated during the run                                                                                                                                                 |
+| artifact_retention      | 2                   | Number of retention days for the artifact                                                                                                                                                                         |
 
 ## Outputs
 

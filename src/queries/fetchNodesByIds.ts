@@ -74,7 +74,9 @@ export const fetchNodesByIds = async <T>({
           const apiPerf = Math.round(
             response.nodes.length / (callDuration / 1000)
           )
-          core.info('Fetched data at: ' + apiPerf + ' nodes/s')
+          core.info(
+            `Latest call contained ${response.nodes.length} nodes, download rate: ${apiPerf} nodes/s`
+          )
           updatedData = response.nodes
         }
       })

@@ -85,11 +85,7 @@ const getNodesPagination = async <T>({
             ghData.ghNode.edges.length / (callDuration / 1000)
           )
           core.info(
-            'Latest call contained ' +
-              ghData.ghNode.edges.length +
-              ' nodes, download rate: ' +
-              apiPerf +
-              ' nodes/s'
+            `Latest call contained ${ghData.ghNode.edges.length} nodes, download rate: ${apiPerf} nodes/s`
           )
         }
         for (const currentNode of ghData.ghNode.edges) {

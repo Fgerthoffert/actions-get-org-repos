@@ -15,8 +15,6 @@ export const getCustomProperties = async <T>({
   const updatedRepos: Repo[] = []
 
   for (const repo of repos) {
-    core.info(`Fetching custom properties for repo: ${repo.name}`)
-
     // Octokit has built-in rate throttling, so we don't need to worry about that here
     const customProperties = await octokit.request(
       'GET /repos/{owner}/{repo}/properties/values',
@@ -52,6 +50,10 @@ export const getCustomProperties = async <T>({
         }
       )
     }
+    core.info(
+      `Fetching custom properties for repo: ${repo.name}. Found: ${JSON.stringify(customPropertiesNode)}`
+    )
+
     console.log(JSON.stringify(customPropertiesNode))
     updatedRepos.push({
       ...repo,
