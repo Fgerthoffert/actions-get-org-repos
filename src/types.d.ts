@@ -53,6 +53,17 @@ interface RepoCustomProperties {
   }[]
 }
 
+interface RepoTopics {
+  totalCount: number
+  edges: {
+    node: {
+      topic: {
+        name: string
+      }
+    }
+  }[]
+}
+
 interface Repo {
   id: string
   name: string
@@ -62,16 +73,7 @@ interface Repo {
     login: string
   }
   customProperties: RepoCustomProperties
-  repositoryTopics: {
-    totalCount: number
-    edges: {
-      node: {
-        topic: {
-          name: string
-        }
-      }
-    }[]
-  }
+  repositoryTopics: RepoTopics
 }
 
 interface GraphQLApiResponse {
