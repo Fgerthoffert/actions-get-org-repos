@@ -159,7 +159,7 @@ Make sure to add the needed secrets in your repository settings:
 - GH_PERSONAL_TOKEN: GitHub Personal API token
 - INCIDENT_GOOGLE_CLIENT_EMAIL: Your Google Auth email (see:
   [the action configuration](https://github.com/Fgerthoffert/actions-csv-to-gsheet?tab=readme-ov-file#google-authentication))
-- INCIDENT_GOOGLE_PRIVATE_KEY_BASE64: Base64 encoded Private key generated when
+- INCIDENT_GOOGLE_PRIVATE_KEY_BASE64: base64 encoded Private key generated when
   setting up Google Authentication
 - INCIDENT_GOOGLE_SPREADSHEET_ID: Your google spreadsheet ID (you can find it in
   the URL of the spreadsheet)
