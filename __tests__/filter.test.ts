@@ -5,20 +5,42 @@
 import { filterRepos } from '../src/utils/filterRepos'
 import { expect } from '@jest/globals'
 
+interface RepoCustomProperties {
+  totalCount: number
+  edges: {
+    node: {
+      name: string
+      values: string[]
+    }
+  }[]
+}
+
+interface RepoTopics {
+  totalCount: number
+  edges: {
+    node: {
+      topic: {
+        name: string
+      }
+    }
+  }[]
+}
+
 interface Repo {
   id: string
   name: string
+  nameWithOwner: string
   isArchived: boolean
-  repositoryTopics: {
-    totalCount: number
-    edges: {
-      node: {
-        topic: {
-          name: string
-        }
-      }
-    }[]
+  owner: {
+    login: string
   }
+  customProperties: RepoCustomProperties
+  repositoryTopics: RepoTopics
+}
+
+const customProperties: RepoCustomProperties = {
+  totalCount: 0,
+  edges: []
 }
 
 const repos: Repo[] = [
@@ -26,6 +48,11 @@ const repos: Repo[] = [
     id: 'a',
     name: 'repo1',
     isArchived: true,
+    nameWithOwner: 'owner/repo1',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 1,
       edges: [
@@ -41,6 +68,11 @@ const repos: Repo[] = [
     id: 'b',
     name: 'repo2',
     isArchived: false,
+    nameWithOwner: 'owner/repo2',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 1,
       edges: [
@@ -61,6 +93,11 @@ const repos: Repo[] = [
     id: 'c',
     name: 'repo3',
     isArchived: false,
+    nameWithOwner: 'owner/repo3',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 1,
       edges: [
@@ -81,6 +118,11 @@ const repos: Repo[] = [
     id: 'd',
     name: 'repo4',
     isArchived: false,
+    nameWithOwner: 'owner/repo4',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 1,
       edges: [
@@ -101,6 +143,11 @@ const repos: Repo[] = [
     id: 'e',
     name: 'repo5',
     isArchived: false,
+    nameWithOwner: 'owner/repo5',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 0,
       edges: []
@@ -110,6 +157,11 @@ const repos: Repo[] = [
     id: 'f',
     name: 'repo6',
     isArchived: true,
+    nameWithOwner: 'owner/repo6',
+    customProperties: customProperties,
+    owner: {
+      login: 'owner'
+    },
     repositoryTopics: {
       totalCount: 0,
       edges: []

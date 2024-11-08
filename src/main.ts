@@ -6,6 +6,7 @@ import os from 'os'
 
 import { getOrgByName, getOrgRepos, getRepos, getRateLimit } from './graphql'
 import { fetchNodesByQuery, fetchNodesByIds } from './queries'
+import { getCustomProperties } from './rest'
 import {
   timeSinceStart,
   formatDate,
@@ -13,7 +14,8 @@ import {
   graphqlQuery,
   filterRepos,
   uploadArtifact,
-  processRateLimit
+  processRateLimit,
+  sortByName
 } from './utils'
 
 /**
@@ -97,7 +99,12 @@ export async function run(): Promise<void> {
       `After filtering, additional data will be fetched about ${filteredRepos.length} repositories`
     )
 
-    const fetchedRepos: Repo[] = await core.group(
+    if (filteredRepos.length === 0) {
+      core.warning('No repositories found based on the filter criteria')
+      return
+    }
+
+    let fetchedRepos: Repo[] = await core.group(
       `${timeSinceStart(startTime)} 📠 Fetching data from all ${filteredRepos.length} repositories`,
       async () => {
         const fetchReposData: Repo[] = await fetchNodesByIds<Repo[]>({
@@ -110,6 +117,24 @@ export async function run(): Promise<void> {
         return fetchReposData
       }
     )
+
+    if (core.getInput('fetch_custom_properties') === 'true') {
+      fetchedRepos = await core.group(
+        `${timeSinceStart(startTime)} 📠 Fetching Custom Properties for ${filteredRepos.length} repositories`,
+        async () => {
+          const fetchReposData: Repo[] = await getCustomProperties<Repo[]>({
+            authToken: core.getInput('token'),
+            repos: fetchedRepos
+          })
+          return fetchReposData
+        }
+      )
+    } else {
+      core.info(`Fetching custom properties is disabled`)
+    }
+
+    // Sort repositories by their nameWithOwner
+    fetchedRepos.sort(sortByName)
 
     const tmpFilename = core.getInput('artifact_filename')
     const tmpPath = os.tmpdir()

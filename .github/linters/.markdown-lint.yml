@@ -5,6 +5,7 @@ MD004:
 # Unordered list style
 MD013:
   tables: false
+  code_blocks: false
 
 # Ordered list item prefix
 MD029:

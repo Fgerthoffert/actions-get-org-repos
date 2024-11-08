@@ -43,20 +43,37 @@ interface OrgResponse {
   rateLimit: RateLimit
 }
 
+interface RepoCustomProperties {
+  totalCount: number
+  edges: {
+    node: {
+      name: string
+      values: string[]
+    }
+  }[]
+}
+
+interface RepoTopics {
+  totalCount: number
+  edges: {
+    node: {
+      topic: {
+        name: string
+      }
+    }
+  }[]
+}
+
 interface Repo {
   id: string
   name: string
+  nameWithOwner: string
   isArchived: boolean
-  repositoryTopics: {
-    totalCount: number
-    edges: {
-      node: {
-        topic: {
-          name: string
-        }
-      }
-    }[]
+  owner: {
+    login: string
   }
+  customProperties: RepoCustomProperties
+  repositoryTopics: RepoTopics
 }
 
 interface GraphQLApiResponse {

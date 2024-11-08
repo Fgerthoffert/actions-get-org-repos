@@ -34,6 +34,13 @@ inputs:
     description: 'By default, archived repositories are not included'
     default: 'true'
     required: false
+  fetch_custom_properties:
+    description:
+      'Perform additional REST calls to grab custom properties for all filtered
+      repositories. This is necessary since the GraphQL API does not support
+      fetching custom properties.'
+    required: false
+    default: 'false'
   artifact_filename:
     description: 'Actual filename of the artifact generated'
     default: 'repositories.ndjson'
