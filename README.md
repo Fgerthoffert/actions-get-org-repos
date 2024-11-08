@@ -114,7 +114,7 @@ multiple times, each time with a different GitHub organization, and without
 changing the `artifact_filename` input to generate one single ndjson file
 containing multiple organizations.
 
-## Generate a CSV report
+## Generate a CSV report and upload to Google Sheets
 
 The generated JSON can be converted to CSV using
 [json2csv](https://juanjodiaz.github.io/json2csv/#/parsers/cli).
@@ -146,32 +146,34 @@ export default {
           .sort()
           .join(', ')
       }
-    },
-    {
-      label: 'Area',
-      value: row => {
-        return ''
-      }
-    },
-    {
-      label: 'Owner',
-      value: row => {
-        return ''
-      }
     }
   ]
 }
 ```
 
-Commit this file (json2csv-config.js here) to your repository in the location of
-your choice.
+Commit this file (here in `.github/config/delivery-grab-repos-cfg.js`) to your
+repository in the location of your choice.
 
-The workflow would then look like this:
+Make sure to add the needed secrets in your repository settings:
+
+- GH_PERSONAL_TOKEN: GitHub Personal API token
+- INCIDENT_GOOGLE_CLIENT_EMAIL: Your Google Auth email (see:
+  [the action configuration](https://github.com/Fgerthoffert/actions-csv-to-gsheet?tab=readme-ov-file#google-authentication))
+- INCIDENT_GOOGLE_PRIVATE_KEY_BASE64: Base64 encoded Private key generated when
+  setting up Google Authentication
+- INCIDENT_GOOGLE_SPREADSHEET_ID: Your google spreadsheet ID (you can find it in
+  the URL of the spreadsheet)
+
+And update the parameters (`with`) to match your GitHub organization (name,
+topics filters if desired, ...) and Google Sheet (name of the worsksheet, header
+row, ID column).
 
 ```yaml
-name: Fetch Orgs Repos
+name: Grab Org Repositories
 
 on:
+  schedule:
+    - cron: '0 5 * * *'
   workflow_dispatch:
 
 jobs:
@@ -182,21 +184,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Get Org Repositories
         id: get-repos
         # Replace main by the release of your choice
         uses: fgerthoffert/actions-get-org-repos@main
         with:
           org: zencrepes
-          token: YOUR_TOKEN
+          token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          fetch_custom_properties: true
+          filter_topics: product
+          filter_operator: AND
+          filter_ignore_archived: true
+
       - name: Convert the NDJSON to CSV
         shell: bash
         run: |
-          npx @json2csv/cli \ 
-            -i ${{ steps.get-repos.outputs.artifact_filepath }} \
-            --ndjson \
-            --config json2csv-config.js \
-            -o repositories.csv
+          npx @json2csv/cli -i ${{ steps.get-repos.outputs.artifact_filepath }} --ndjson --config ${{ github.workspace }}/.github/config/delivery-grab-repos-cfg.js -o repositories.csv
+
       - name: Archive CSV artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -204,9 +209,19 @@ jobs:
           path: |
             repositories.csv
           retention-days: 2
-```
 
-## Upload report to Google Spreadsheet
+      - name: Push the CSV file to Google Sheets
+        # Replace main by the release of your choice
+        uses: fgerthoffert/actions-csv-to-gsheet@main
+        with:
+          csv_filepath: repositories.csv
+          gsheet_auth_email: ${{ secrets.INCIDENT_GOOGLE_CLIENT_EMAIL }}
+          gsheet_auth_pkey: ${{ secrets.INCIDENT_GOOGLE_PRIVATE_KEY_BASE64 }}
+          gsheet_id: ${{ secrets.INCIDENT_GOOGLE_SPREADSHEET_ID }}
+          gsheet_worksheet_title: Repos
+          gsheet_header_row: 1
+          gsheet_title_key: Name
+```
 
 # How to contribute
 

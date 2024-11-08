@@ -5,7 +5,7 @@
 import { filterRepos } from '../src/utils/filterRepos'
 import { expect } from '@jest/globals'
 
-export interface RepoCustomProperties {
+interface RepoCustomProperties {
   totalCount: number
   edges: {
     node: {
@@ -26,7 +26,7 @@ interface RepoTopics {
   }[]
 }
 
-export interface Repo {
+interface Repo {
   id: string
   name: string
   nameWithOwner: string
