@@ -153,12 +153,30 @@ export const getRepos = gql`
             }
           }
         }
+        tags: refs(
+          refPrefix: "refs/tags/"
+          first: 30
+          orderBy: { field: TAG_COMMIT_DATE, direction: DESC }
+        ) {
+          nodes {
+            name
+            target {
+              ... on Tag {
+                tagger {
+                  date
+                  email
+                  name
+                }
+              }
+            }
+          }
+        }
         recentCommitsMaster: ref(qualifiedName: "master") {
           name
           target {
             ... on Commit {
               id
-              history(first: 20) {
+              history(first: 5) {
                 totalCount
                 edges {
                   node {
