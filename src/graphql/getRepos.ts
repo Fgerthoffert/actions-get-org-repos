@@ -161,6 +161,9 @@ export const getRepos = gql`
           nodes {
             name
             target {
+              ... on Commit {
+                committedDate
+              }
               ... on Tag {
                 tagger {
                   date
