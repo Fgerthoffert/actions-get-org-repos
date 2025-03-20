@@ -176,7 +176,7 @@ export const getRepos = gql`
           target {
             ... on Commit {
               id
-              history(first: 20) {
+              history(first: 5) {
                 totalCount
                 edges {
                   node {
