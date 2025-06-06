@@ -55,7 +55,6 @@ export const getRepos = gql`
         diskUsage
         forkCount
         hasIssuesEnabled
-        hasProjectsEnabled
         hasWikiEnabled
         id
         isArchived
@@ -103,9 +102,6 @@ export const getRepos = gql`
           id
           login
           url
-        }
-        projects(first: 1) {
-          totalCount
         }
         primaryLanguage {
           id
